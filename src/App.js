@@ -1,16 +1,11 @@
 import React from 'react';
 import './App.css';
-import SimpleTest from './components/SimpleTest';
+import CachingDemo from './components/CachingDemo';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Apollo Client Test</h1>
-      </header>
-      <main>
-        <SimpleTest />
-      </main>
+      <CachingDemo />
     </div>
   );
 }
