@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useQuery, useApolloClient, useLazyQuery } from '@apollo/client';
 import { GET_CHARACTERS, GET_CHARACTER_DETAIL, GET_RANDOM_CHARACTER } from '../graphql/queries';
 
 const CachingDemo = () => {
   const [fetchPolicy, setFetchPolicy] = useState('cache-first');
   const [selectedCharacterId, setSelectedCharacterId] = useState(null);
-  const [queryStats, setQueryStats] = useState({ executed: 0, cached: 0 });
+//   const [queryStats, setQueryStats] = useState({ executed: 0, cached: 0 });
   const [startTime, setStartTime] = useState(null);
   const [responseTime, setResponseTime] = useState(null);
 
@@ -18,9 +18,9 @@ const CachingDemo = () => {
       variables: { page: 1 },
       fetchPolicy: fetchPolicy,
       notifyOnNetworkStatusChange: true,
-      onQueryUpdated() {
-        setQueryStats(prev => ({ ...prev, executed: prev.executed + 1 }));
-      }
+    //   onQueryUpdated() {
+    //     setQueryStats(prev => ({ ...prev, executed: prev.executed + 1 }));
+    //   }
     }
   );
 
@@ -70,7 +70,7 @@ const CachingDemo = () => {
 
   const clearCache = () => {
     client.cache.reset();
-    setQueryStats({ executed: 0, cached: 0 });
+    // setQueryStats({ executed: 0, cached: 0 });
     setResponseTime(null);
   };
 
@@ -200,16 +200,16 @@ const renderCharacterDetail = (character) => {
   
   return (
     <div className="detail-content">
-      <img src={character.image} alt={character.name} />
+      <img src={character?.image} alt={character?.name} />
       <div className="detail-info">
-        <h3>{character.name}</h3>
-        <p><strong>Status:</strong> {character.status}</p>
-        <p><strong>Species:</strong> {character.species}</p>
-        <p><strong>Gender:</strong> {character.gender}</p>
-        <p><strong>Origin:</strong> {character.origin.name}</p>
-        <p><strong>Location:</strong> {character.location.name}</p>
-        {character.episode && (
-          <p><strong>Episodes:</strong> {character.episode.length}</p>
+        <h3>{character?.name}</h3>
+        <p><strong>Status:</strong> {character?.status}</p>
+        <p><strong>Species:</strong> {character?.species}</p>
+        <p><strong>Gender:</strong> {character?.gender}</p>
+        <p><strong>Origin:</strong> {character?.origin?.name}</p>
+        <p><strong>Location:</strong> {character?.location?.name}</p>
+        {character?.episode && (
+          <p><strong>Episodes:</strong> {character?.episode?.length}</p>
         )}
       </div>
     </div>
